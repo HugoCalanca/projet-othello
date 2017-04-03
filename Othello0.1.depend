@@ -1,0 +1,65 @@
+# depslib dependency file v1.0
+1491165128 source:c:\users\adrien\documents\ece cours\ing2\informatique\othello0.1\src\console.cpp
+	"console.h"
+	<conio.h>
+	<windows.h>
+
+1491165128 c:\users\adrien\documents\ece cours\ing2\informatique\othello0.1\include\console.h
+	<iostream>
+
+1491084480 source:c:\users\adrien\documents\ece cours\ing2\informatique\othello0.1\main.cpp
+	<iostream>
+	<vector>
+	<stdlib.h>
+	"console.h"
+	<algorithm>
+	<windows.h>
+	"Board.h"
+
+1491173204 source:c:\users\adrien\documents\ece cours\ing2\informatique\othello0.1\src\board.cpp
+	"Board.h"
+	<iostream>
+	<windows.h>
+	<stdlib.h>
+	<fstream>
+
+1491164937 c:\users\adrien\documents\ece cours\ing2\informatique\othello0.1\include\board.h
+	"console.h"
+
+1491209492 source:c:\users\hugo\desktop\othello0.1\main.cpp
+	<iostream>
+	<vector>
+	<windows.h>
+	<stdlib.h>
+	"console.h"
+	<algorithm>
+	<windows.h>
+	"Board.h"
+	<Player.h>
+	<fstream>
+
+1491165128 c:\users\hugo\desktop\othello0.1\include\console.h
+	<iostream>
+
+1491164937 c:\users\hugo\desktop\othello0.1\include\board.h
+	"console.h"
+
+1491210052 source:c:\users\hugo\desktop\othello0.1\src\board.cpp
+	"Board.h"
+	<iostream>
+	<windows.h>
+	<stdlib.h>
+	<fstream>
+
+1491165128 source:c:\users\hugo\desktop\othello0.1\src\console.cpp
+	"console.h"
+	<conio.h>
+	<windows.h>
+
+1491208573 source:c:\users\hugo\desktop\othello0.1\src\player.cpp
+	"Player.h"
+
+1491208601 c:\users\hugo\desktop\othello0.1\include\player.h
+	<string>
+	<vector>
+
