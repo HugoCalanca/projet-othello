@@ -16,9 +16,10 @@ class Board
         void m_play();
         void m_reset();
         void m_display();
-        void m_put(char mov);
+        void m_put(char mov,int m_x,int m_y);
         void m_cursor(char mov);
         void m_clean();
+        bool isPlacementOK(int m_x,int m_y);
     private:
         char tab[8][8];
         unsigned int m_x;
@@ -27,8 +28,6 @@ class Board
         unsigned int pre_y;
         char pre_c;
         Console* p_console;
-
-
 };
 
 #endif // BOARD_H

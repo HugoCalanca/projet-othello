@@ -26,7 +26,7 @@
 1491164937 c:\users\adrien\documents\ece cours\ing2\informatique\othello0.1\include\board.h
 	"console.h"
 
-1491209492 source:c:\users\hugo\desktop\othello0.1\main.cpp
+1491409511 source:c:\users\hugo\desktop\othello0.1\main.cpp
 	<iostream>
 	<vector>
 	<windows.h>
@@ -41,11 +41,13 @@
 1491165128 c:\users\hugo\desktop\othello0.1\include\console.h
 	<iostream>
 
-1491164937 c:\users\hugo\desktop\othello0.1\include\board.h
+1491381393 c:\users\hugo\desktop\othello0.1\include\board.h
 	"console.h"
 
-1491210052 source:c:\users\hugo\desktop\othello0.1\src\board.cpp
+1491383602 source:c:\users\hugo\desktop\othello0.1\src\board.cpp
 	"Board.h"
+	"console.h"
+	"Player.h"
 	<iostream>
 	<windows.h>
 	<stdlib.h>

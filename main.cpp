@@ -26,8 +26,8 @@ int main()
     cout<< "        Maintenant, entrez le nom du second jouer"<< endl;
     cin>>name2;
     system("cls");
-    Player a(name1,'E');
-    Player b(name2,'R');*/
+    Player a(name1,'X');
+    Player b(name2,'O');*/
 
     system("cls");
     ifstream fichier("Menu.txt", ios::in);
@@ -38,6 +38,8 @@ int main()
     }
     system("pause");
     system("cls");
+
+
 
     plateau.m_play();
 }
