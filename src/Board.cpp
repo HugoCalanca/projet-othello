@@ -1,5 +1,6 @@
 #include "Board.h"
 #include <iostream>
+#include "Player.h"
 #include <windows.h>
 #include <stdlib.h>
 #include <fstream>
@@ -39,6 +40,43 @@ Board::~Board()
 
 void Board::m_display()
 {
+    string name1;
+    string name2;
+    char symbol_1;
+    char symbol_2;
+    cout<< "        entrez le nom du premier joueur"<< endl;
+    cin>>name1;
+
+    do
+                {
+                    cout <<"        couleur du pion (R ou B)" << endl;
+                    cin >> symbol_1;
+                }
+
+            while(symbol_1 != 'R' && symbol_1 != 'B' && symbol_1!='r' && symbol_1!='b');
+
+
+
+    cout<< "        entrez le nom du deuxieme joueur"<< endl;
+    cin>>name2;
+
+
+            if (symbol_1== 'R' || symbol_1=='r')
+                {
+                    symbol_2 = 'B';
+                }
+
+
+           else
+            {
+                symbol_2 = 'R';
+            }
+    Player a(name1,symbol_1);
+    Player b(name2,symbol_2);
+    cout<<name1 <<" : " <<symbol_1<<endl;
+    cout<<name2 <<" : " <<symbol_2 <<endl;
+    system("PAUSE");
+    system("cls");
 
     Console* pConsole = NULL;
     pConsole = Console::getInstance();

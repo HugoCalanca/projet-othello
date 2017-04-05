@@ -14,7 +14,7 @@ using namespace std;
 int main()
 {
     Board plateau;
-    string name1;
+    /*string name1;
     string name2;
     cout<<endl;
     cout<<endl;
@@ -27,7 +27,7 @@ int main()
     cin>>name2;
     system("cls");
     Player a(name1,'E');
-    Player b(name2,'R');
+    Player b(name2,'R');*/
 
     system("cls");
     ifstream fichier("Menu.txt", ios::in);
