@@ -43,8 +43,19 @@ Board::~Board()
     //dtor
 }
 
-bool Board::isPlacementOK(int m_x,int m_y)
+
+
+
+
+
+bool Board::isPlacementOK(int m_x,int m_y,Player a)
 {
+    char adverse;
+    if(a.getSymbol() == 'R')
+    {
+        adverse= 'B';
+    }else{adverse = 'R';}
+
     if(tab[m_x-1][m_y-1] == 'x' || tab[m_x-1][m_y-1] == 'o')
     {
         cout << tab[m_x-1][m_y-1] << "diagonale ahut gauche" << endl;
@@ -203,16 +214,16 @@ void Board::m_play()
             {
                 char mov = this->p_console->getInputKey();
                 //this->m_put(mov);
-                this->m_cursor(mov);
+                this->m_cursor(mov,a);
                 this->m_display();
             }
 
         }
 }
 
-void Board::m_put(char mov, int m_x, int m_y)
+void Board::m_put(char mov, int m_x, int m_y,Player a)
 {
-    if(isPlacementOK(m_x,m_y))
+    if(isPlacementOK(m_x,m_y,a))
     {
     this->m_set(m_y, m_x, 120); //caractere representant le pion
     p_console->gotoLigCol(m_x*3 + 4, m_y*6 + 8);
@@ -221,7 +232,7 @@ void Board::m_put(char mov, int m_x, int m_y)
 
 }
 
-void Board::m_cursor(char mov)
+void Board::m_cursor(char mov,Player a)
 {
                 switch(mov)
                 {
@@ -274,7 +285,7 @@ void Board::m_cursor(char mov)
                     break;
 
                 case 32:
-                    this->m_put(mov,m_x,m_y);
+                    this->m_put(mov,m_x,m_y,a);
                     break;
 
                 default:

@@ -1,6 +1,8 @@
 #ifndef BOARD_H
 #define BOARD_H
 #include "console.h"
+#include "Player.h"
+#include <vector>
 /*
  * Cette classe représente l'othellier
  * Le plateau de jeu
@@ -16,12 +18,13 @@ class Board
         void m_play();
         void m_reset();
         void m_display();
-        void m_put(char mov,int m_x,int m_y);
-        void m_cursor(char mov);
+        void m_put(char mov,int m_x,int m_y,Player a);
+        void m_cursor(char mov, Player a);
         void m_clean();
-        bool isPlacementOK(int m_x,int m_y);
+        bool isPlacementOK(int m_x,int m_y, Player a);
     private:
         char tab[8][8];
+
         unsigned int m_x;
         unsigned int m_y;
         unsigned int pre_x;
