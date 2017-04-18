@@ -14,21 +14,6 @@ using namespace std;
 int main()
 {
     Board plateau;
-    /*string name1;
-    string name2;
-    cout<<endl;
-    cout<<endl;
-    cout<<endl;
-    cout<< "        Bienvenue dans le jeu d'othello, entrez le nom du premier jouer"<< endl;
-    cin>>name1;
-    cout<<endl;
-    cout<<endl;
-    cout<< "        Maintenant, entrez le nom du second jouer"<< endl;
-    cin>>name2;
-    system("cls");
-    Player a(name1,'X');
-    Player b(name2,'O');*/
-
     system("cls");
     ifstream fichier("Menu.txt", ios::in);
     string line;
@@ -41,5 +26,5 @@ int main()
 
 
 
-    plateau.m_play();
+    plateau.Begin();
 }
