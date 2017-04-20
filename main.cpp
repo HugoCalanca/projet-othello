@@ -21,10 +21,18 @@ int main()
     {
         cout << line << endl;
     }
-    system("pause");
-    system("cls");
+    //system("pause");
+    //system("cls");
+
+    int choice=0;
 
 
+    while(choice < 1 || choice > 3)
+    {
+        cin >> choice;
+    }
 
-    plateau.Begin();
+system("cls");
+
+    plateau.Begin(choice);
 }

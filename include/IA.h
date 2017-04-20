@@ -12,6 +12,8 @@ class IA
         int Min(char tab_simu[8][8], vector<Coup>& listCoup, int deep);
         int Max(char tab_simu[8][8], vector<Coup>& listCoup, int deep);
         int eval(char tab_simu[8][8]);
+        void Random(unsigned int& m_x, unsigned int& m_y,vector<Coup> m_listCoup);
+        void Heuristique();
     protected:
 };
 

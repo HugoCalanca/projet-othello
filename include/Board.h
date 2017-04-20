@@ -24,11 +24,13 @@ class Board
         void m_put(char mov,int m_x,int m_y);
         void m_cursor(char mov);
         void m_flip(unsigned int m_x, unsigned int m_y, char allie, char adverse);
-        void Begin();
+        void Begin(int choice);
         void Bouclejeu();
+        void Bouclejeu2();
         bool isSquareOK(int m_x, int m_y);
         bool isCoupjouable(int col, int lig);
         void resetList();
+        void Winner();
         Player p1;
         Player p2;
         IA ia;

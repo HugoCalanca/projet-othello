@@ -44,24 +44,57 @@ void Board::resetList()
     this->m_listCoup.erase(m_listCoup.begin(), m_listCoup.end());
 }
 
-void Board::Begin()
+void Board::Begin(int choice)
 {
-    string name1 = "Joueur1";
-    string name2 = "Joueur2";
-    char symbol_1 = 177 ;
-    char symbol_2 = 178 ;
-    this->p1.setname(name1);
-    this->p1.setsymbol(symbol_1);
-    this->p2.setname(name2);
-    this->p2.setsymbol(symbol_2);
-    p_console->setColor(COLOR_GREEN);
-    cout<<name1 <<" : " <<symbol_1<<endl;
-    p_console->setColor(COLOR_YELLOW);
-    cout<<name2 <<" : " <<symbol_2 <<endl;
-    p_console->setColor(COLOR_DEFAULT);
-    system("PAUSE");
-    system("cls");
-    this->Bouclejeu();
+
+    if(choice == 1)
+    {
+        string name1 = "Joueur1";
+        string name2 = "Joueur2";
+        char symbol_1 = 177 ;
+        char symbol_2 = 178 ;
+        this->p1.setname(name1);
+        this->p1.setsymbol(symbol_1);
+        this->p2.setname(name2);
+        this->p2.setsymbol(symbol_2);
+        p_console->setColor(COLOR_GREEN);
+        cout<<name1 <<" : " <<symbol_1<<endl;
+        p_console->setColor(COLOR_YELLOW);
+        cout<<name2 <<" : " <<symbol_2 <<endl;
+        p_console->setColor(COLOR_DEFAULT);
+        system("PAUSE");
+        system("cls");
+        this->Bouclejeu2();
+    }
+    else if(choice ==2)
+    {
+        string name1 = "Joueur1";
+        string name2 = "IA";
+        char symbol_1 = 177 ;
+        char symbol_2 = 178 ;
+        this->p1.setname(name1);
+        this->p1.setsymbol(symbol_1);
+        this->p2.setname(name2);
+        this->p2.setsymbol(symbol_2);
+        p_console->setColor(COLOR_GREEN);
+        cout<<name1 <<" : " <<symbol_1<<endl;
+        p_console->setColor(COLOR_YELLOW);
+        cout<<name2 <<" : " <<symbol_2 <<endl;
+        p_console->setColor(COLOR_DEFAULT);
+        system("PAUSE");
+        system("cls");
+        this->Bouclejeu();
+    }
+    else if(choice == 3)
+    {
+        ifstream fichier("Regle.txt", ios::in);
+        string line;
+        while(getline(fichier,line))
+        {
+            cout << line << endl;
+        }
+    }
+
 }
 
 bool Board::isCoupjouable(int col, int lig)
@@ -133,11 +166,11 @@ void Board::m_display()
             }
             else if (isCoupjouable(i, j))
             {
-                 p_console->setColor(COLOR_BLUE);
+                p_console->setColor(COLOR_BLUE);
             }
             else
             {
-             p_console->setColor(COLOR_DEFAULT);
+                p_console->setColor(COLOR_DEFAULT);
             }
             p_console->gotoLigCol(i*3 + 4, j*6 + 8);
             cout<<tab[i][j]<< " ";
@@ -166,7 +199,7 @@ void Board::m_play()
 
 }
 
-void Board::Bouclejeu()
+void Board::Bouclejeu2()
 {
     while(1)
     {
@@ -180,6 +213,10 @@ void Board::Bouclejeu()
         }
         m_over= false;
         this->m_display();
+        if (m_listCoup.size()==0)
+        {
+            Winner();
+        }
         while(!m_over)
         {
             if(this->p_console->isKeyboardPressed())
@@ -188,6 +225,40 @@ void Board::Bouclejeu()
                 this->m_cursor(mov);
                 this->m_display();
             }
+        }
+        this->resetList();
+    }
+}
+
+void Board::Bouclejeu()
+{
+    while(1)
+    {
+        if(this->m_tour % 2 == 0)
+        {
+            this->p2.get_possibilites(tab, this->p1.getSymbol(), m_listCoup);
+            this->ia.Random(m_x, m_y, m_listCoup);
+            this->m_put(p2.getSymbol(), m_x, m_y);
+            this->m_display();
+        }
+        else
+        {
+            this->p1.get_possibilites(tab, this->p2.getSymbol(), m_listCoup);
+            while(!m_over)
+            {
+                if(this->p_console->isKeyboardPressed())
+                {
+                    char mov = this->p_console->getInputKey();
+                    this->m_cursor(mov);
+                    this->m_display();
+                }
+            }
+        }
+        m_over= false;
+        this->m_display();
+        if (m_listCoup.size()==0)
+        {
+            Winner();
         }
         this->resetList();
     }
@@ -215,7 +286,33 @@ void Board::m_put(char mov, int m_x, int m_y)
             this->m_tour++;
             m_over= true;
         }
+
+
     }
+    /*else
+        {
+        Winner();
+        }
+
+    int v=64;
+    for (int i=0; i<7;i++)
+    { for(int j=0;j<7;j++)
+        {
+            if (tab[i][j]!=223)
+            {
+                v--;
+                cout<<v;
+            }
+        }
+    }
+    if (v==0)
+    {
+        Winner();
+    }
+    */
+
+
+
 
 }
 
@@ -237,11 +334,15 @@ void Board::m_cursor(char mov)
     case 'd':
 
         m_y++;
+
+        cout<<endl<<endl<<endl<<endl<<endl<<m_y;
         break;
 
     case 'q':
 
-        m_y--;
+            m_y--;
+
+
         break;
 
     case 32:
@@ -259,7 +360,7 @@ void Board::m_cursor(char mov)
     {
         m_x = 7;
     }
-    if(m_x < 0)
+    if (m_x < 0)
     {
         m_x = 0;
     }
@@ -269,6 +370,44 @@ void Board::m_cursor(char mov)
     }
     if(m_y < 0)
     {
-        m_y = 0;
+       m_y = 0;
+    }
+}
+
+void Board::Winner()
+{
+    int j1=0;
+    int j2=0;
+    int vide;
+    for (int i=0; i<7; i++)
+    {
+        for (int j=0; j<7; j++)
+        {
+            if (tab[i][j]==177)
+            {
+                j1++;
+            }
+
+            if (tab[i][j]==178)
+            {
+                j2++;
+            }
+
+            if (tab[i][j]==223)
+            {
+                vide++;
+            }
+        }
+    }
+
+    if (j1>j2)
+    {
+        j1=j1+vide;
+        cout<<this->p1.getName() <<" gagne! (nombre de pions : " <<j1 <<")"<<endl;
+    }
+    else
+    {
+        j2=j2+vide;
+        cout<<this->p2.getName() <<" gagne! (nombre de pions : " <<j2 <<")"<<endl;
     }
 }
