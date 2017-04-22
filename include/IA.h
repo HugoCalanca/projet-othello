@@ -1,17 +1,20 @@
 #ifndef IA_H
 #define IA_H
-#include "Player.h"
-
+#include "Board.h"
+#include <Board.h>
+#include <utility>
+#include <vector>
 class IA
 {
     public:
         IA();
         ~IA();
-        void simulation(char tab[8][8], Player& adverse, vector<Coup>& listCoup, int deep);
         void reset(unsigned int x, unsigned int y, char tab[8][8]);
-        int Min(char tab_simu[8][8], vector<Coup>& listCoup, int deep);
-        int Max(char tab_simu[8][8], vector<Coup>& listCoup, int deep);
-        int eval(char tab_simu[8][8]);
+        int Min();
+        int Max();
+        int eval(Board n_f);
+        pair<unsigned int, unsigned int> Random(vector<Coup> m_listCoup);
+        pair<unsigned int, unsigned int> create_children(Board plateau);
     protected:
 };
 

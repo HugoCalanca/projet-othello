@@ -1,6 +1,11 @@
 #include "IA.h"
 #include "Coup.h"
 #include <vector>
+#include <queue>
+#include "time.h"
+#include "Node.h"
+#include "random"
+#include "Board.h"
 
 IA::IA()
 {
@@ -13,101 +18,89 @@ IA::~IA()
 }
 
 
+
+pair<unsigned int, unsigned int> IA::Random(vector<Coup> m_listCoup)
+{
+    int num;
+    pair<unsigned int, unsigned int> p;
+
+
+    srand(time(NULL));
+
+    num=rand()%m_listCoup.size();
+
+    p.first = m_listCoup[num].m_first;
+    p.second = m_listCoup[num].m_second;
+
+    return p;
+}
+
+
+
+pair<unsigned int, unsigned int> IA::create_children(Board plateau)
+{
+    //on créé une copie du plateau actuel pour créer le noeud racine
+    Board n_rac(plateau);
+    //on trouve tous les coups possibles pour cette configuration
+    n_rac.set_possibilites();
+    //Pour tous les coups possible dans cette configuration
+    for(int i = 0; i < n_rac.m_listCoup.size(); i++)
+    {
+        n_rac.set_x(n_rac.m_listCoup[i].m_first);
+        n_rac.set_y(n_rac.m_listCoup[i].m_second);
+        n_rac.m_put();
+        n_rac.resetList();
+    }
+}
+
+
 void IA::reset(unsigned int x, unsigned int y, char tab[8][8])
 {
     tab[x][y] = 223;
 }
 
-void IA::simulation(char tab[8][8], Player& adverse, vector<Coup>& listCoup, int deep)
+
+int IA::Min()
 {
-    char tab_simu[8][8];
-
-    //on créé un tableau pour simuler les coups
-    for(unsigned int i = 0; i < 7; i++)
-    {
-        for(unsigned int j = 0; j <7; j++)
-        {
-            tab_simu[i][j] = tab[i][j];
-        }
-    }
-    //this->get_possibilites(tab, adverse.getSymbol(), listCoup);
-    //pour chaque coups possible pour l'IA
-    for(unsigned int i = 0; i < listCoup.size(); i++)
-    {
-
-    }
 
 }
 
 
-int IA::Min(char tab_simu[8][8], vector<Coup>& listCoup, int deep)
+int IA::Max()
 {
-    if(deep == 0)
-    {
-        return eval(tab_simu);
-    }
-    int minimum = 10000;
-    int tmp;
-    for(unsigned int i = 0; i < listCoup.size(); i++)
-    {
-        //this->set_pion(listCoup[i].m_first, listCoup[i].m_second, tab_simu);
-        tmp = Max(tab_simu, listCoup, deep-1);
 
-        if(tmp < minimum)
-        {
-            minimum = tmp;
-        }
-        this->reset(listCoup[i].m_first, listCoup[i].m_second, tab_simu);
-    }
-
-    return minimum;
 }
 
-
-int IA::Max(char tab_simu[8][8], vector<Coup>& listCoup, int deep)
+int IA::eval(Board n_f)
 {
-    if(deep == 0)
-    {
-        return eval(tab_simu);
-    }
-    int maximum = 10000;
-    int tmp;
-    for(unsigned int i = 0; i < listCoup.size(); i++)
-    {
-        //this->set_pion(listCoup[i].m_first, listCoup[i].m_second, tab_simu);
-        tmp = Max(tab_simu, listCoup, deep-1);
 
-        if(tmp < maximum)
+int val_j1 = 0;
+int val_j2 = 0;
+int val_fin = 0;
+int tab[8][8] = {120, -20, 20,  5,  5, 20, -20, 120,
+                     -20, -40, -5, -5, -5, -5, -40, -20,
+                     20,  -5, 15,  3,  3, 15,  -5,  20,
+                     5,  -5,  3,  3,  3,  3,  -5,   5,
+                     5,  -5,  3,  3,  3,  3,  -5,   5,
+                     20,  -5, 15,  3,  3, 15,  -5,  20,
+                     -20, -40, -5, -5, -5, -5, -40, -20,
+                     120, -20, 20,  5,  5, 20, -20, 120
+                    };
+
+for(int i = 0; i < 8; i++)
+{
+    for(int j =0; j < 8; j++)
+    {
+        if(n_f.tab[i][j] == n_f.j1)
         {
-            maximum = tmp;
+            val_j1 = val_j1 + tab[i][j];
         }
-        this->reset(listCoup[i].m_first, listCoup[i].m_second, tab_simu);
+        else if(n_f.tab[i][j] == n_f.j2)
+        {
+            val_j2 = val_j2 + tab[i][j];
+        }
     }
-
-    return maximum;
 }
-
-int IA::eval(char tab_simu[8][8])
-{
-    int nbtot_pion = 0;
-
-    for(unsigned int i = 0; i < 7; i++)
-    {
-        for(unsigned int j = 0; j < 7; j++)
-        {
-            if(tab_simu[i][j] != 223)
-            {
-                nbtot_pion++;
-            }
-        }
-    }
-    if(1/*this->getnpion(tab_simu) > nbtot_pion - this->getnpion(tab_simu)*/)
-    {
-        //return 1000 - this->getnpion(tab_simu);
-    }
-    else
-    {
-        //return -1000 + this->getnpion(tab_simu);
-    }
-
+    val_fin = val_j1 - val_j2;
+    return val_fin;
 }

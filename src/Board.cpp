@@ -1,6 +1,5 @@
 #include "Board.h"
 #include "console.h"
-#include "Player.h"
 #include <iostream>
 #include <windows.h>
 #include <stdlib.h>
@@ -27,9 +26,6 @@ Board::Board()
     this->p_console->setColor(COLOR_DEFAULT);
     this->m_x = 0;
     this->m_y = 0;
-    this->pre_x = 0;
-    this->pre_y = 0;
-    this->pre_c = 223;
     this->m_over = false;
     this->m_tour = 1;
 }
@@ -44,24 +40,246 @@ void Board::resetList()
     this->m_listCoup.erase(m_listCoup.begin(), m_listCoup.end());
 }
 
-void Board::Begin()
+unsigned int Board::get_x()
 {
-    string name1 = "Joueur1";
-    string name2 = "Joueur2";
-    char symbol_1 = 177 ;
-    char symbol_2 = 178 ;
-    this->p1.setname(name1);
-    this->p1.setsymbol(symbol_1);
-    this->p2.setname(name2);
-    this->p2.setsymbol(symbol_2);
-    p_console->setColor(COLOR_GREEN);
-    cout<<name1 <<" : " <<symbol_1<<endl;
-    p_console->setColor(COLOR_YELLOW);
-    cout<<name2 <<" : " <<symbol_2 <<endl;
-    p_console->setColor(COLOR_DEFAULT);
-    system("PAUSE");
-    system("cls");
-    this->Bouclejeu();
+    return this->m_x;
+}
+
+unsigned int Board::get_y()
+{
+    return this->m_y;
+}
+
+void Board::set_x(unsigned int x)
+{
+    this->m_x = x;
+}
+
+
+void Board::set_y(unsigned int y)
+{
+    this->m_y = y;
+}
+
+
+void Board::set_possibilites()
+{
+    char adverse, allie;
+    if(m_tour % 2 !=0)
+    {
+        allie = this->j1;
+        adverse = this->j2;
+    }
+    else
+    {
+        adverse = this->j1;
+        allie = this->j2;
+    }
+    unsigned int col = 0;
+    unsigned int lig = 0;
+    for(unsigned int i= 0; i <8; i++)
+    {
+        for(unsigned int j=0; j <8; j++)
+        {
+            if(tab[i][j]== allie)
+            {
+                if(tab[i+1][j] == adverse) // si ya un ennemi à droite
+                {
+                    col = i+1;
+                    lig = j;
+                    while( tab[col][lig] == adverse)
+                    {
+                        col++;
+                    }
+                    if(tab[col][lig]== allie || col < 0 || col > 7 || lig <0 || lig > 7)
+                    {
+
+                    }
+                    else
+                    {
+                        Coup c(col, lig, 1);
+                        this->m_listCoup.push_back(c);
+                    }
+                }
+                if(tab[i-1][j]==adverse) // si ya un ennemi à gauche
+                {
+                    col = i-1;
+                    lig = j;
+                    while( tab[col][lig] == adverse)
+                    {
+                        col--;
+                    }
+                    if(tab[col][lig]== allie || col < 0 || col > 7 || lig <0 || lig > 7)
+                    {
+
+                    }
+                    else
+                    {
+                        Coup c(col, lig, 1);
+                        this->m_listCoup.push_back(c);
+                    }
+                }
+                if(tab[i][j-1]==adverse) // si ya un ennemi en haut
+                {
+                    col = i;
+                    lig = j-1;
+                    while( tab[col][lig] == adverse)
+                    {
+                        lig--;
+                    }
+                    if(tab[col][lig]== allie || col < 0 || col > 7 || lig <0 || lig > 7)
+                    {
+
+                    }
+                    else
+                    {
+                        Coup c(col, lig, 1);
+                        this->m_listCoup.push_back(c);
+                    }
+                }
+                if(tab[i][j+1]==adverse) // si ya un ennemi en bas
+                {
+                    col = i;
+                    lig = j+1;
+                    while(tab[col][lig] == adverse)
+                    {
+                        lig++;
+                    }
+                    if(tab[col][lig]== allie || col < 0 || col > 7 || lig <0 || lig > 7)
+                    {
+
+                    }
+                    else
+                    {
+                        Coup c(col, lig, 1);
+                        this->m_listCoup.push_back(c);
+                    }
+                }
+                if(tab[i+1][j+1]==adverse) // si ya un ennemi en bas à droite
+                {
+                    col = i+1;
+                    lig = j+1;
+                    while( tab[col][lig] == adverse)
+                    {
+                        col++;
+                        lig++;
+                    }
+                    if(tab[col][lig]== allie || col < 0 || col > 7 || lig <0 || lig > 7)
+                    {
+
+                    }
+                    else
+                    {
+                        Coup c(col, lig, 1);
+                        this->m_listCoup.push_back(c);
+                    }
+                }
+                if(tab[i+1][j-1]==adverse) // si ya un ennemi en haut à droite
+                {
+                    col = i+1;
+                    lig = j-1;
+                    while( tab[col][lig] == adverse)
+                    {
+                        col++;
+                        lig--;
+                    }
+                    if(tab[col][lig]== allie || col < 0 || col > 7 || lig <0 || lig > 7)
+                    {
+
+                    }
+                    else
+                    {
+                        Coup c(col, lig, 1);
+                        this->m_listCoup.push_back(c);
+                    }
+                }
+                if(tab[i-1][j-1]==adverse) // si ya un ennemi en haut à gauche
+                {
+                    col = i-1;
+                    lig = j-1;
+                    while( tab[col][lig] == adverse)
+                    {
+                        col--;
+                        lig--;
+                    }
+                    if(tab[col][lig]== allie || col < 0 || col > 7 || lig <0 || lig > 7)
+                    {
+
+                    }
+                    else
+                    {
+                        Coup c(col, lig, 1);
+                        this->m_listCoup.push_back(c);
+                    }
+                }
+                if(tab[i-1][j+1]==adverse) // si ya un ennemi en bas à gauche
+                {
+                    col = i-1;
+                    lig = j+1;
+                    while(tab[col][lig] == adverse)
+                    {
+                        col--;
+                        lig++;
+                    }
+                    if(tab[col][lig]== allie || col < 0 || col > 7 || lig <0 || lig > 7)
+                    {
+
+                    }
+                    else
+                    {
+                        Coup c(col, lig, 1);
+                        this->m_listCoup.push_back(c);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+void Board::Begin(int choice)
+{
+
+    if(choice == 1)
+    {
+        string name1 = "Joueur1";
+        string name2 = "Joueur2";
+        this->j1 = 177 ;
+        this->j2 = 178 ;
+        p_console->setColor(COLOR_GREEN);
+        cout<<name1 <<" : " <<j1<<endl;
+        p_console->setColor(COLOR_YELLOW);
+        cout<<name2 <<" : " <<j2 <<endl;
+        p_console->setColor(COLOR_DEFAULT);
+        system("PAUSE");
+        system("cls");
+        //this->Bouclejeu2();
+    }
+    else if(choice ==2)
+    {
+        string name1 = "Joueur1";
+        string name2 = "IA";
+        this->j1 = 177 ;
+        this->j2 = 178 ;
+        p_console->setColor(COLOR_GREEN);
+        cout<<name1 <<" : " <<j1<<endl;
+        p_console->setColor(COLOR_YELLOW);
+        cout<<name2 <<" : " <<j2 <<endl;
+        p_console->setColor(COLOR_DEFAULT);
+        system("PAUSE");
+        system("cls");
+        //this->Bouclejeu();
+    }
+    else if(choice == 3)
+    {
+        ifstream fichier("Regle.txt", ios::in);
+        string line;
+        while(getline(fichier,line))
+        {
+            cout << line << endl;
+        }
+    }
+
 }
 
 bool Board::isCoupjouable(int col, int lig)
@@ -75,7 +293,7 @@ bool Board::isCoupjouable(int col, int lig)
     }
 }
 
-bool Board::isSquareOK(int m_x, int m_y)
+bool Board::isSquareOK()
 {
     if(tab[m_x][m_y]== 177 || tab[m_x][m_y]== 178)
     {
@@ -123,21 +341,21 @@ void Board::m_display()
             {
                 p_console->setColor(COLOR_RED);
             }
-            else if(tab[i][j] == p1.getSymbol())
+            else if(tab[i][j] == this->j1)
             {
                 p_console->setColor(COLOR_GREEN);
             }
-            else if(tab[i][j] == p2.getSymbol())
+            else if(tab[i][j] == this->j2)
             {
                 p_console->setColor(COLOR_YELLOW);
             }
             else if (isCoupjouable(i, j))
             {
-                 p_console->setColor(COLOR_BLUE);
+                p_console->setColor(COLOR_BLUE);
             }
             else
             {
-             p_console->setColor(COLOR_DEFAULT);
+                p_console->setColor(COLOR_WHITE);
             }
             p_console->gotoLigCol(i*3 + 4, j*6 + 8);
             cout<<tab[i][j]<< " ";
@@ -146,7 +364,20 @@ void Board::m_display()
     }
 
     p_console->gotoLigCol(5,60);
-    cout<< m_x << " " << m_y;
+    if(this->m_tour % 2 != 0)
+    {
+        //c'est au J1 de jouer
+        p_console->setColor(COLOR_GREEN);
+        cout<< "A J1"<< this->j1<<"de jouer " << endl;
+    }
+    else
+    {
+        //c'est au J2 de jouer
+        p_console->setColor(COLOR_YELLOW);
+        cout<< "A J2"<< this->j2<<"de jouer " << endl;
+
+    }
+
     p_console->gotoLigCol(7,60);
 }
 
@@ -161,61 +392,313 @@ void Board::m_reset()
     }
 }
 
+//tour de jeu pour un joueur humain
 void Board::m_play()
 {
-
+    //on cherhce toutes les possibilité
+    this->set_possibilites();
+    m_over = false;
+    //tant qu'on a pas fini son tour
+    while(!m_over)
+    {
+        if(this->p_console->isKeyboardPressed())
+        {
+            //on fait joué le curseur
+            char mov = this->p_console->getInputKey();
+            this->m_cursor(mov);
+            this->m_display();
+        }
+    }
+    //on reset la list pour la suite
+    this->resetList();
 }
 
-void Board::Bouclejeu()
+//tour de jeu de l'intelligence artificielle
+void Board::m_play(bool ia)
+{
+    //on cherche toutes les possibilitées pour l'ia (pas indispensable)
+    this->set_possibilites();
+    if (m_listCoup.size()==0)
+    {
+        Winner();
+    }
+    m_over = false;
+    this->m_put();
+    this->m_display();
+    //on reset la list
+    this->resetList();
+}
+
+
+/*void Board::Bouclejeu()
 {
     while(1)
     {
         if(this->m_tour % 2 == 0)
         {
-            this->p2.get_possibilites(tab, this->p1.getSymbol(), m_listCoup);
+            this->set_possibilites();
+            if (m_listCoup.size()==0)
+            {
+                Winner();
+            }
+            //this->ia.Random(m_x, m_y, m_listCoup);
+            this->m_put();
+            this->m_display();
         }
         else
         {
-            this->p1.get_possibilites(tab, this->p2.getSymbol(), m_listCoup);
+            this->set_possibilites();
+            while(!m_over)
+            {
+                if(this->p_console->isKeyboardPressed())
+                {
+                    char mov = this->p_console->getInputKey();
+                    this->m_cursor(mov);
+                    this->m_display();
+                }
+            }
         }
         m_over= false;
         this->m_display();
-        while(!m_over)
-        {
-            if(this->p_console->isKeyboardPressed())
-            {
-                char mov = this->p_console->getInputKey();
-                this->m_cursor(mov);
-                this->m_display();
-            }
-        }
+
         this->resetList();
+    }
+}*/
+
+
+void Board::set_pion()
+{
+    if(this->m_tour % 2 != 0)
+    {
+        //c'est au joueur 1 de jouer
+        this->tab[m_x][m_y] = this->j1;
+    }
+    else
+    {
+        //c'est au joueur 2 de jouer
+        this->tab[m_x][m_y] = this->j2;
     }
 }
 
-void Board::m_put(char mov, int m_x, int m_y)
+void Board::set_pion(unsigned int col, unsigned int lig)
 {
-    if(isSquareOK(m_x,m_y))
+    if(this->m_tour % 2 != 0)
+    {
+        //c'est au joueur 1 de jouer
+        this->tab[col][lig] = this->j1;
+    }
+    else
+    {
+        //c'est au joueur 2 de jouer
+        this->tab[col][lig] = this->j2;
+    }
+}
+
+
+void Board::flip_pion()
+{
+    char adverse, allie;
+    if(m_tour % 2 !=0)
+    {
+        //c'est à j1 de jouer
+        allie = this->j1;
+        adverse = this->j2;
+    }
+    else
+    {
+        //c'est à j2 de jouer
+        adverse = this->j1;
+        allie = this->j2;
+    }
+    if(tab[m_x+1][m_y] == adverse)
+    {
+        //s'il y a un adversaire
+        unsigned int i = m_x+1;
+        unsigned int j = m_y;
+        while(tab[i][j] == adverse && tab[i][j] != allie)
+        {
+            i++;
+        }
+        if(tab[i][j] == allie)
+        {
+            while( i != m_x)
+            {
+                i--;
+                this->set_pion(i, j);
+            }
+        }
+    }
+    if(tab[m_x-1][m_y] == adverse)
+    {
+        unsigned int i = m_x-1;
+        unsigned int j = m_y;
+        while(tab[i][j] == adverse && tab[i][j] != allie)
+        {
+            i--;
+        }
+        if(tab[i][j] == allie)
+        {
+            while( i != m_x)
+            {
+                i++;
+                this->set_pion(i, j);
+            }
+        }
+    }
+    if(tab[m_x][m_y+1] == adverse)
+    {
+        unsigned int i = m_x;
+        unsigned int j = m_y+1;
+        while(tab[i][j] == adverse && tab[i][j] != allie)
+        {
+            j++;
+        }
+        if(tab[i][j] == allie)
+        {
+            while( j != m_y)
+            {
+                j--;
+                this->set_pion(i, j);
+            }
+        }
+    }
+    if(tab[m_x][m_y-1] == adverse)
+    {
+        unsigned int i = m_x;
+        unsigned int j = m_y-1;
+        while(tab[i][j] == adverse && tab[i][j] != allie)
+        {
+            j--;
+        }
+        if(tab[i][j] == allie)
+        {
+            while( j != m_y)
+            {
+                j++;
+                this->set_pion(i, j);
+            }
+        }
+    }
+    if(tab[m_x+1][m_y+1] == adverse)
+    {
+        unsigned int i = m_x+1;
+        unsigned int j = m_y+1;
+        while(tab[i][j] == adverse && tab[i][j] != allie)
+        {
+            i++;
+            j++;
+        }
+        if(tab[i][j] == allie)
+        {
+            while( i != m_x && j != m_y)
+            {
+                i--;
+                j--;
+                this->set_pion(i, j);
+            }
+        }
+    }
+    if(tab[m_x+1][m_y-1] == adverse)
+    {
+        unsigned int i = m_x+1;
+        unsigned int j = m_y-1;
+        while(tab[i][j] == adverse && tab[i][j] != allie)
+        {
+            i++;
+            j--;
+        }
+        if(tab[i][j] == allie)
+        {
+            while( i != m_x && j != m_y)
+            {
+                i--;
+                j++;
+                this->set_pion(i, j);
+            }
+        }
+    }
+    if(tab[m_x-1][m_y+1] == adverse)
+    {
+        unsigned int i = m_x-1;
+        unsigned int j = m_y+1;
+        while(tab[i][j] == adverse && tab[i][j] != allie)
+        {
+            i--;
+            j++;
+        }
+        if(tab[i][j] == allie)
+        {
+            while( i != m_x && j != m_y)
+            {
+                i++;
+                j--;
+                this->set_pion(i, j);
+            }
+        }
+    }
+    if(tab[m_x-1][m_y-1] == adverse)
+    {
+        unsigned int i = m_x-1;
+        unsigned int j = m_y-1;
+        while(tab[i][j] == adverse && tab[i][j] != allie)
+        {
+            i--;
+            j--;
+        }
+        if(tab[i][j] == allie)
+        {
+            while( i != m_x && j != m_y)
+            {
+                i++;
+                j++;
+                this->set_pion(i, j);
+            }
+        }
+    }
+}
+
+
+void Board::m_put()
+{
+    if(isSquareOK())
     {
         if(isCoupjouable(m_x, m_y))
         {
-            if(this->m_tour % 2 == 0)
-            {
-                this->p2.set_pion(m_x, m_y, this->tab);
-                this->p2.flip_pion(m_x, m_y, this->p1.getSymbol(), this->tab);
-            }
-            else
-            {
-                this->p1.set_pion(m_x, m_y, this->tab);
-                this->p1.flip_pion(m_x, m_y, this->p2.getSymbol(), this->tab);
-            }
+            this->set_pion();
+            this->flip_pion();
             p_console->setColor(COLOR_YELLOW);
             p_console->gotoLigCol(m_x*3 + 4, m_y*6 + 8);
             cout<<this->tab[m_x][m_y];
             this->m_tour++;
             m_over= true;
         }
+
+
     }
+    /*else
+        {
+        Winner();
+        }
+
+    int v=64;
+    for (int i=0; i<7;i++)
+    { for(int j=0;j<7;j++)
+        {
+            if (tab[i][j]!=223)
+            {
+                v--;
+                cout<<v;
+            }
+        }
+    }
+    if (v==0)
+    {
+        Winner();
+    }
+    */
+
+
+
 
 }
 
@@ -237,29 +720,37 @@ void Board::m_cursor(char mov)
     case 'd':
 
         m_y++;
+
+        cout<<endl<<endl<<endl<<endl<<endl<<m_y;
         break;
 
     case 'q':
 
-        m_y--;
+        if (m_y>=0)
+        {
+            m_y--;
+        }
+        else
+        {
+            m_y=0;
+        }
+        cout<<endl<<endl<<endl<<endl<<m_y;
         break;
 
     case 32:
-        this->m_put(mov,m_x,m_y);
+        this->m_put();
         break;
 
     default:
         m_x = m_x;
         m_y = m_y;
-        pre_x = pre_x;
-        pre_y = pre_y;
         break;
     }
     if( m_x > 7)
     {
         m_x = 7;
     }
-    if(m_x < 0)
+    if (m_x < 0)
     {
         m_x = 0;
     }
@@ -267,8 +758,47 @@ void Board::m_cursor(char mov)
     {
         m_y = 7;
     }
-    if(m_y < 0)
+    /*if(m_y < 0)
     {
-        m_y = 0;
+       m_y = 0;
+    }*/
+}
+
+void Board::Winner()
+{
+    int j1;
+    int j2;
+    int vide;
+    for (int i=0; i<7; i++)
+    {
+        for (int j=0; j<7; j++)
+        {
+            if (tab[i][j]==177)
+            {
+                j1++;
+            }
+
+            if (tab[i][j]==178)
+            {
+                j2++;
+            }
+
+            if (tab[i][j]==223)
+            {
+                vide++;
+            }
+        }
+    }
+
+    if (j1>j2)
+    {
+        j1=j1+vide;
+        cout<<" J1 gagne! (nombre de pions : " <<j1 <<")"<<endl;
+    }
+    else
+    {
+        j2=j2+vide;
+        cout<<" J2 gagne! (nombre de pions : " <<j2 <<")"<<endl;
     }
 }
+

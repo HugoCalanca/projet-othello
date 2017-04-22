@@ -242,3 +242,290 @@
 	<fstream>
 	<utility>
 
+1492501192 source:c:\users\solene\documents\github\projet-othello\projet-othello\main.cpp
+	<iostream>
+	<vector>
+	<windows.h>
+	<stdlib.h>
+	"console.h"
+	<algorithm>
+	<windows.h>
+	"Board.h"
+	<Player.h>
+	<fstream>
+
+1491292330 c:\users\solene\documents\github\projet-othello\projet-othello\include\console.h
+	<iostream>
+
+1492539681 c:\users\solene\documents\github\projet-othello\projet-othello\include\board.h
+	"console.h"
+	"Player.h"
+	"IA.h"
+	"Coup.h"
+	<vector>
+	<set>
+
+1492540829 c:\users\solene\documents\github\projet-othello\projet-othello\include\player.h
+	<string>
+	<vector>
+	<set>
+	"Coup.h"
+	<iostream>
+	<windows.h>
+	<stdlib.h>
+	<fstream>
+	<utility>
+
+1492501192 c:\users\solene\documents\github\projet-othello\projet-othello\include\coup.h
+
+1492501192 c:\users\solene\documents\github\projet-othello\projet-othello\include\ia.h
+	"Player.h"
+
+1491292330 source:c:\users\solene\documents\github\projet-othello\projet-othello\src\console.cpp
+	"console.h"
+	<conio.h>
+	<windows.h>
+
+1492501192 source:c:\users\solene\documents\github\projet-othello\projet-othello\src\coup.cpp
+	"Coup.h"
+
+1492501192 source:c:\users\solene\documents\github\projet-othello\projet-othello\src\ia.cpp
+	"IA.h"
+	"Coup.h"
+	<vector>
+
+1492501192 source:c:\users\solene\documents\github\projet-othello\projet-othello\src\player.cpp
+	"Player.h"
+	<set>
+	"Coup.h"
+
+1492541377 source:c:\users\solene\documents\github\projet-othello\projet-othello\src\board.cpp
+	"Board.h"
+	"console.h"
+	"Player.h"
+	<iostream>
+	<windows.h>
+	<stdlib.h>
+	<fstream>
+	<utility>
+
+1492598412 source:c:\users\hugo\desktop\projet-othello 4.0\main.cpp
+	<iostream>
+	<vector>
+	<windows.h>
+	<stdlib.h>
+	"console.h"
+	<algorithm>
+	<windows.h>
+	"Board.h"
+	<Player.h>
+	<fstream>
+
+1491295932 c:\users\hugo\desktop\projet-othello 4.0\include\console.h
+	<iostream>
+
+1492597870 c:\users\hugo\desktop\projet-othello 4.0\include\board.h
+	"console.h"
+	"Player.h"
+	"IA.h"
+	"Coup.h"
+	<vector>
+	<set>
+
+1492544430 c:\users\hugo\desktop\projet-othello 4.0\include\player.h
+	<string>
+	<vector>
+	<set>
+	"Coup.h"
+	<iostream>
+	<windows.h>
+	<stdlib.h>
+	<fstream>
+	<utility>
+
+1492504794 c:\users\hugo\desktop\projet-othello 4.0\include\coup.h
+
+1492617428 c:\users\hugo\desktop\projet-othello 4.0\include\ia.h
+	"Player.h"
+
+1492615828 source:c:\users\hugo\desktop\projet-othello 4.0\src\board.cpp
+	"Board.h"
+	"console.h"
+	"Player.h"
+	<iostream>
+	<windows.h>
+	<stdlib.h>
+	<fstream>
+	<utility>
+
+1491295932 source:c:\users\hugo\desktop\projet-othello 4.0\src\console.cpp
+	"console.h"
+	<conio.h>
+	<windows.h>
+
+1492504794 source:c:\users\hugo\desktop\projet-othello 4.0\src\coup.cpp
+	"Coup.h"
+
+1492617452 source:c:\users\hugo\desktop\projet-othello 4.0\src\ia.cpp
+	"IA.h"
+	"Coup.h"
+	<vector>
+	"time.h"
+	"random"
+
+1492504794 source:c:\users\hugo\desktop\projet-othello 4.0\src\player.cpp
+	"Player.h"
+	<set>
+	"Coup.h"
+
+1492797676 source:c:\users\adrien\documents\github\projet-othello\main.cpp
+	<iostream>
+	<vector>
+	<windows.h>
+	<stdlib.h>
+	"console.h"
+	<algorithm>
+	<windows.h>
+	"Board.h"
+	<Player.h>
+	<fstream>
+
+1491295932 c:\users\adrien\documents\github\projet-othello\include\console.h
+	<iostream>
+
+1492799317 c:\users\adrien\documents\github\projet-othello\include\board.h
+	"console.h"
+	"Player.h"
+	"IA.h"
+	"Coup.h"
+	<vector>
+	<set>
+
+1492544430 c:\users\adrien\documents\github\projet-othello\include\player.h
+	<string>
+	<vector>
+	<set>
+	"Coup.h"
+	<iostream>
+	<windows.h>
+	<stdlib.h>
+	<fstream>
+	<utility>
+
+1492504794 c:\users\adrien\documents\github\projet-othello\include\coup.h
+
+1492792547 c:\users\adrien\documents\github\projet-othello\include\ia.h
+	"Player.h"
+	"Node.h"
+	<utility>
+	<vector>
+
+1492799213 source:c:\users\adrien\documents\github\projet-othello\src\board.cpp
+	"Board.h"
+	"console.h"
+	"Player.h"
+	<iostream>
+	<windows.h>
+	<stdlib.h>
+	<fstream>
+	<utility>
+
+1491295932 source:c:\users\adrien\documents\github\projet-othello\src\console.cpp
+	"console.h"
+	<conio.h>
+	<windows.h>
+
+1492504794 source:c:\users\adrien\documents\github\projet-othello\src\coup.cpp
+	"Coup.h"
+
+1492792547 source:c:\users\adrien\documents\github\projet-othello\src\ia.cpp
+	"IA.h"
+	"Coup.h"
+	<vector>
+	<queue>
+	"time.h"
+	"Node.h"
+	"random"
+
+1492504794 source:c:\users\adrien\documents\github\projet-othello\src\player.cpp
+	"Player.h"
+	<set>
+	"Coup.h"
+
+1492798997 c:\users\adrien\documents\github\projet-othello\include\node.h
+
+1492859144 source:c:\users\adrien\documents\github\projet-othello - copie\src\board.cpp
+	"Board.h"
+	"console.h"
+	<iostream>
+	<windows.h>
+	<stdlib.h>
+	<fstream>
+	<utility>
+
+1492859144 c:\users\adrien\documents\github\projet-othello - copie\include\board.h
+	"console.h"
+	"Player.h"
+	"Coup.h"
+	<vector>
+	<set>
+
+1491295932 c:\users\adrien\documents\github\projet-othello - copie\include\console.h
+	<iostream>
+
+1492544430 c:\users\adrien\documents\github\projet-othello - copie\include\player.h
+	<string>
+	<vector>
+	<set>
+	"Coup.h"
+	<iostream>
+	<windows.h>
+	<stdlib.h>
+	<fstream>
+	<utility>
+
+1492504794 c:\users\adrien\documents\github\projet-othello - copie\include\coup.h
+
+1492859177 c:\users\adrien\documents\github\projet-othello - copie\include\ia.h
+	"Board.h"
+	<Board.h>
+	<utility>
+	<vector>
+
+1492798997 c:\users\adrien\documents\github\projet-othello - copie\include\node.h
+
+1491295932 source:c:\users\adrien\documents\github\projet-othello - copie\src\console.cpp
+	"console.h"
+	<conio.h>
+	<windows.h>
+
+1492504794 source:c:\users\adrien\documents\github\projet-othello - copie\src\coup.cpp
+	"Coup.h"
+
+1492858903 source:c:\users\adrien\documents\github\projet-othello - copie\src\ia.cpp
+	"IA.h"
+	"Coup.h"
+	<vector>
+	<queue>
+	"time.h"
+	"Node.h"
+	"random"
+	"Board.h"
+
+1492504794 source:c:\users\adrien\documents\github\projet-othello - copie\src\player.cpp
+	"Player.h"
+	<set>
+	"Coup.h"
+
+1492858759 source:c:\users\adrien\documents\github\projet-othello - copie\main.cpp
+	<iostream>
+	<vector>
+	<windows.h>
+	<stdlib.h>
+	"console.h"
+	<algorithm>
+	<windows.h>
+	"IA.h"
+	"Board.h"
+	<fstream>
+
