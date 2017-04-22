@@ -35,6 +35,7 @@ int main()
 
     int choice=0;
 
+<<<<<<< HEAD
 
     while(choice < 1 || choice > 3)
     {
@@ -71,4 +72,15 @@ int main()
         break;
     }
 
+=======
+
+    while(choice < 1 || choice > 3)
+    {
+        cin >> choice;
+    }
+
+system("cls");
+
+    plateau.Begin(choice);
+>>>>>>> origin/master
 }

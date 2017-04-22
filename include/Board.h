@@ -26,6 +26,7 @@ class Board
         void m_display();
         void m_put();
         void m_cursor(char mov);
+<<<<<<< HEAD
         //remplie la liste de coups jouable
         void set_possibilites();
         //accesseurs des coordonnées du curseur
@@ -46,6 +47,19 @@ class Board
         char j1;
         char j2;
         //liste des coups jouable
+=======
+        void m_flip(unsigned int m_x, unsigned int m_y, char allie, char adverse);
+        void Begin(int choice);
+        void Bouclejeu();
+        void Bouclejeu2();
+        bool isSquareOK(int m_x, int m_y);
+        bool isCoupjouable(int col, int lig);
+        void resetList();
+        void Winner();
+        Player p1;
+        Player p2;
+        IA ia;
+>>>>>>> origin/master
         vector<Coup> m_listCoup;
         char tab[8][8];
     private:

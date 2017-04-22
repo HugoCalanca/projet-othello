@@ -1,11 +1,16 @@
 #include "IA.h"
 #include "Coup.h"
 #include <vector>
+<<<<<<< HEAD
 #include <queue>
 #include "time.h"
 #include "Node.h"
 #include "random"
 #include "Board.h"
+=======
+#include "time.h"
+#include "random"
+>>>>>>> origin/master
 
 IA::IA()
 {
@@ -15,6 +20,31 @@ IA::IA()
 IA::~IA()
 {
     //dtor
+}
+
+void IA::Heuristique()
+{
+   int tab[8][8] = {120, -20, 20,  5,  5, 20, -20, 120,
+                   -20, -40, -5, -5, -5, -5, -40, -20,
+                    20,  -5, 15,  3,  3, 15,  -5,  20,
+                     5,  -5,  3,  3,  3,  3,  -5,   5,
+                     5,  -5,  3,  3,  3,  3,  -5,   5,
+                    20,  -5, 15,  3,  3, 15,  -5,  20,
+                   -20, -40, -5, -5, -5, -5, -40, -20,
+                   120, -20, 20,  5,  5, 20, -20, 120};
+}
+
+void IA::Random(unsigned int& m_x, unsigned int& m_y,vector<Coup> m_listCoup)
+{
+    int num;
+
+
+    srand(time(NULL));
+
+    num=rand()%m_listCoup.size();
+
+    m_x = m_listCoup[num].m_first;
+    m_y = m_listCoup[num].m_second;
 }
 
 

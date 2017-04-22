@@ -378,7 +378,11 @@
 	<set>
 	"Coup.h"
 
+<<<<<<< HEAD
 1492797676 source:c:\users\adrien\documents\github\projet-othello\main.cpp
+=======
+1492594812 source:c:\users\solene\desktop\projet-othello 4.0\main.cpp
+>>>>>>> origin/master
 	<iostream>
 	<vector>
 	<windows.h>
@@ -390,10 +394,17 @@
 	<Player.h>
 	<fstream>
 
+<<<<<<< HEAD
 1491295932 c:\users\adrien\documents\github\projet-othello\include\console.h
 	<iostream>
 
 1492799317 c:\users\adrien\documents\github\projet-othello\include\board.h
+=======
+1491292332 c:\users\solene\desktop\projet-othello 4.0\include\console.h
+	<iostream>
+
+1492594270 c:\users\solene\desktop\projet-othello 4.0\include\board.h
+>>>>>>> origin/master
 	"console.h"
 	"Player.h"
 	"IA.h"
@@ -401,7 +412,11 @@
 	<vector>
 	<set>
 
+<<<<<<< HEAD
 1492544430 c:\users\adrien\documents\github\projet-othello\include\player.h
+=======
+1492540830 c:\users\solene\desktop\projet-othello 4.0\include\player.h
+>>>>>>> origin/master
 	<string>
 	<vector>
 	<set>
@@ -412,6 +427,7 @@
 	<fstream>
 	<utility>
 
+<<<<<<< HEAD
 1492504794 c:\users\adrien\documents\github\projet-othello\include\coup.h
 
 1492792547 c:\users\adrien\documents\github\projet-othello\include\ia.h
@@ -421,6 +437,14 @@
 	<vector>
 
 1492799213 source:c:\users\adrien\documents\github\projet-othello\src\board.cpp
+=======
+1492501194 c:\users\solene\desktop\projet-othello 4.0\include\coup.h
+
+1492613828 c:\users\solene\desktop\projet-othello 4.0\include\ia.h
+	"Player.h"
+
+1492612228 source:c:\users\solene\desktop\projet-othello 4.0\src\board.cpp
+>>>>>>> origin/master
 	"Board.h"
 	"console.h"
 	"Player.h"
@@ -430,11 +454,16 @@
 	<fstream>
 	<utility>
 
+<<<<<<< HEAD
 1491295932 source:c:\users\adrien\documents\github\projet-othello\src\console.cpp
+=======
+1491292332 source:c:\users\solene\desktop\projet-othello 4.0\src\console.cpp
+>>>>>>> origin/master
 	"console.h"
 	<conio.h>
 	<windows.h>
 
+<<<<<<< HEAD
 1492504794 source:c:\users\adrien\documents\github\projet-othello\src\coup.cpp
 	"Coup.h"
 
@@ -528,4 +557,20 @@
 	"IA.h"
 	"Board.h"
 	<fstream>
+=======
+1492501194 source:c:\users\solene\desktop\projet-othello 4.0\src\coup.cpp
+	"Coup.h"
+
+1492613852 source:c:\users\solene\desktop\projet-othello 4.0\src\ia.cpp
+	"IA.h"
+	"Coup.h"
+	<vector>
+	"time.h"
+	"random"
+
+1492501194 source:c:\users\solene\desktop\projet-othello 4.0\src\player.cpp
+	"Player.h"
+	<set>
+	"Coup.h"
+>>>>>>> origin/master
 
