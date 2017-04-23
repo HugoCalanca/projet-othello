@@ -2,7 +2,6 @@
 #define BOARD_H
 #include "console.h"
 #include "Player.h"
-#include "IA.h"
 #include "Coup.h"
 #include <vector>
 #include <set>
@@ -17,29 +16,50 @@ class Board
     public:
         Board();
         ~Board();
-        void m_set(unsigned int li, unsigned int col, char a);
+        void set_pion();
+        //surcharge de fonction
+        void set_pion(unsigned int col, unsigned int lig);
+        void flip_pion();
         void m_play();
+        void m_play(bool ia);
         void m_reset();
         void m_display();
-        void m_put(char mov,int m_x,int m_y);
+        void m_put();
+        //fonction qui joue le coups sans l'afficher pour l'ia
+        void m_put(bool ia);
         void m_cursor(char mov);
-        void m_flip(unsigned int m_x, unsigned int m_y, char allie, char adverse);
-        void Begin();
+        //remplie la liste de coups jouable
+        void set_possibilites();
+        //accesseurs des coordonnées du curseur
+        unsigned int get_x();
+        unsigned int get_y();
+        void set_x(unsigned int x);
+        void set_y(unsigned int y);
+
+        vector<Board> get_suc_n();
+
+        void Begin(int choice);
         void Bouclejeu();
-        bool isSquareOK(int m_x, int m_y);
+        void Bouclejeu2();
+        bool isSquareOK();
         bool isCoupjouable(int col, int lig);
         void resetList();
-        Player p1;
-        Player p2;
-        IA ia;
+        bool isBoardfull();
+        void Winner();
+        //caractère représentant les pions des joueurs 1&2
+        char j1;
+        char j2;
+        //liste des coups jouable
         vector<Coup> m_listCoup;
-    private:
         char tab[8][8];
+        void Save();
+        void Load();
+        void regle();
+    private:
         unsigned int m_x;
         unsigned int m_y;
-        unsigned int pre_x;
-        unsigned int pre_y;
-        char pre_c;
+        Board* pre_n;
+        vector<Board> suc_n;
         Console* p_console;
         bool m_over;
         unsigned int m_tour;

@@ -1,6 +1,12 @@
 #include "IA.h"
 #include "Coup.h"
 #include <vector>
+#include <queue>
+#include "time.h"
+#include "Node.h"
+#include "random"
+#include "Board.h"
+#include <fstream>
 
 IA::IA()
 {
@@ -13,101 +19,259 @@ IA::~IA()
 }
 
 
+
+pair<unsigned int, unsigned int> IA::Random(vector<Coup> m_listCoup)
+{
+    int num;
+    pair<unsigned int, unsigned int> p;
+
+
+    srand(time(NULL));
+
+    num=rand()%m_listCoup.size();
+
+    p.first = m_listCoup[num].m_first;
+    p.second = m_listCoup[num].m_second;
+
+    return p;
+}
+
+
+
+pair<unsigned int, unsigned int> IA::minimax(Board& plateau, int deep)
+{
+    int max_val = -1000;
+    int tmp;
+    pair<unsigned int, unsigned int> p;
+    //on créé une copie du plateau actuel pour créer le noeud racine
+    Board n_rac(plateau);
+    //on trouve tous les coups possibles pour cette configuration
+    n_rac.set_possibilites();
+    //Pour tous les coups possible dans cette configuration
+    for(int i = 0; i < n_rac.m_listCoup.size(); i++)
+    {
+        n_rac.set_x(n_rac.m_listCoup[i].m_first);
+        n_rac.set_y(n_rac.m_listCoup[i].m_second);
+        n_rac.m_put(true);
+        //on envoie a Min() le noeud fils
+        tmp = Max(n_rac, deep-1);
+
+        if(tmp > max_val)
+        {
+            max_val = tmp;
+            p.first = n_rac.m_listCoup[i].m_first;
+            p.second = n_rac.m_listCoup[i].m_second;
+
+        }
+
+ /*       //on créé un noeud fils
+        Board n_fils = n_rac;
+        //on reprend le noeud racine
+        n_rac = plateau;
+        //et on lui assigne son nouveau fils
+        n_rac.get_suc_n().push_back(n_fils);*/
+    }
+
+    return p;
+
+}
+
+
+
+pair<unsigned int, unsigned int> IA::minimax(Board& plateau, int a, int b, int deep)
+{
+    int max_val = -1000;
+    int tmp;
+    pair<unsigned int, unsigned int> p;
+    //on créé une copie du plateau actuel pour créer le noeud racine
+    Board n_rac(plateau);
+    //on trouve tous les coups possibles pour cette configuration
+    n_rac.set_possibilites();
+    //Pour tous les coups possible dans cette configuration
+    for(int i = 0; i < n_rac.m_listCoup.size(); i++)
+    {
+        n_rac.set_x(n_rac.m_listCoup[i].m_first);
+        n_rac.set_y(n_rac.m_listCoup[i].m_second);
+        n_rac.m_put(true);
+        //on envoie a Min() le noeud fils
+        tmp = AB(n_rac, a, b, deep);
+
+        if(tmp > max_val)
+        {
+            max_val = tmp;
+            p.first = n_rac.m_listCoup[i].m_first;
+            p.second = n_rac.m_listCoup[i].m_second;
+
+        }
+
+ /*       //on créé un noeud fils
+        Board n_fils = n_rac;
+        //on reprend le noeud racine
+        n_rac = plateau;
+        //et on lui assigne son nouveau fils
+        n_rac.get_suc_n().push_back(n_fils);*/
+    }
+
+    return p;
+
+}
+
+void IA::create_child(Board& n, int deep)
+{
+    if(deep != 0)
+    {
+        //on créé une copie du plateau actuel pour créer le noeud racine
+        Board n_rac(n);
+        //on trouve tous les coups possibles pour cette configuration
+        n_rac.set_possibilites();
+        //Pour tous les coups possible dans cette configuration
+        for(int i = 0; i < n_rac.m_listCoup.size(); i++)
+        {
+            n_rac.set_x(n_rac.m_listCoup[i].m_first);
+            n_rac.set_y(n_rac.m_listCoup[i].m_second);
+            n_rac.m_put(true);
+
+            //on créé un noeud fils
+            Board n_fils = n_rac;
+            //on reprend le noeud racine
+            n_rac = n;
+            //et on lui assigne son nouveau fils
+            n_rac.get_suc_n().push_back(n_fils);
+        }
+    }
+}
+
+void IA::create_tree(Board& n, int deep)
+{
+    for(auto& elem : n.get_suc_n())
+    {
+        this->create_child(elem, deep);
+        deep--;
+    }
+}
+
+int IA::AB(Board& n, int a, int b, int deep)
+{
+    if(deep == 0 || n.m_listCoup.empty())
+    {
+        return eval(n);
+    }
+    else
+    {
+        this->create_tree(n, deep);
+        int best = -1000;
+        for(int i = 0; i < n.get_suc_n().size(); i++)
+        {
+            int val = - AB(n.get_suc_n()[i], -b, -a, deep-1);
+            if(val > best)
+            {
+                best = val;
+                if(best > a)
+                {
+                    a = best;
+
+                    if(a >= b)
+                    {
+                        return best;
+                    }
+                }
+            }
+        }
+        return best;
+    }
+}
+
 void IA::reset(unsigned int x, unsigned int y, char tab[8][8])
 {
     tab[x][y] = 223;
 }
 
-void IA::simulation(char tab[8][8], Player& adverse, vector<Coup>& listCoup, int deep)
+
+int IA::Max(Board& n, int deep)
 {
-    char tab_simu[8][8];
-
-    //on créé un tableau pour simuler les coups
-    for(unsigned int i = 0; i < 7; i++)
+    if(deep == 0 || n.m_listCoup.empty())
     {
-        for(unsigned int j = 0; j <7; j++)
-        {
-            tab_simu[i][j] = tab[i][j];
-        }
-    }
-    //this->get_possibilites(tab, adverse.getSymbol(), listCoup);
-    //pour chaque coups possible pour l'IA
-    for(unsigned int i = 0; i < listCoup.size(); i++)
-    {
-
+        return eval(n);
     }
 
-}
-
-
-int IA::Min(char tab_simu[8][8], vector<Coup>& listCoup, int deep)
-{
-    if(deep == 0)
-    {
-        return eval(tab_simu);
-    }
-    int minimum = 10000;
+    int max_val = -1000;
     int tmp;
-    for(unsigned int i = 0; i < listCoup.size(); i++)
-    {
-        //this->set_pion(listCoup[i].m_first, listCoup[i].m_second, tab_simu);
-        tmp = Max(tab_simu, listCoup, deep-1);
 
-        if(tmp < minimum)
+    for(int i = 0; i < n.m_listCoup.size(); i++)
+    {
+        n.set_x(n.m_listCoup[i].m_first);
+        n.set_y(n.m_listCoup[i].m_second);
+        n.m_put(true);
+        //on envoie a Min() le noeud fils
+        tmp = Max(n, deep-1);
+
+        if(tmp > max_val)
         {
-            minimum = tmp;
+            max_val = tmp;
         }
-        this->reset(listCoup[i].m_first, listCoup[i].m_second, tab_simu);
     }
 
-    return minimum;
+    return max_val;
 }
 
 
-int IA::Max(char tab_simu[8][8], vector<Coup>& listCoup, int deep)
+int IA::Min(Board& n, int deep)
 {
-    if(deep == 0)
+    if(deep == 0 || n.m_listCoup.empty())
     {
-        return eval(tab_simu);
+        return eval(n);
     }
-    int maximum = 10000;
+
+    int min_val = 1000;
     int tmp;
-    for(unsigned int i = 0; i < listCoup.size(); i++)
-    {
-        //this->set_pion(listCoup[i].m_first, listCoup[i].m_second, tab_simu);
-        tmp = Max(tab_simu, listCoup, deep-1);
 
-        if(tmp < maximum)
+    for(int i = 0; i < n.m_listCoup.size(); i++)
+    {
+        n.set_x(n.m_listCoup[i].m_first);
+        n.set_y(n.m_listCoup[i].m_second);
+        n.m_put(true);
+        //on envoie a Max() le noeud fils
+        tmp = Max(n, deep-1);
+
+        if(tmp > min_val)
         {
-            maximum = tmp;
+            min_val = tmp;
         }
-        this->reset(listCoup[i].m_first, listCoup[i].m_second, tab_simu);
     }
 
-    return maximum;
+    return min_val;
 }
 
-int IA::eval(char tab_simu[8][8])
+int IA::eval(Board& n_f)
 {
-    int nbtot_pion = 0;
 
-    for(unsigned int i = 0; i < 7; i++)
+    int val_j1 = 0;
+    int val_j2 = 0;
+    int val_fin = 0;
+    int tab[8][8] = {120, -20, 20,  5,  5, 20, -20, 120,
+                     -20, -40, -5, -5, -5, -5, -40, -20,
+                     20,  -5, 15,  3,  3, 15,  -5,  20,
+                     5,  -5,  3,  3,  3,  3,  -5,   5,
+                     5,  -5,  3,  3,  3,  3,  -5,   5,
+                     20,  -5, 15,  3,  3, 15,  -5,  20,
+                     -20, -40, -5, -5, -5, -5, -40, -20,
+                     120, -20, 20,  5,  5, 20, -20, 120
+                    };
+
+    for(int i = 0; i < 8; i++)
     {
-        for(unsigned int j = 0; j < 7; j++)
+        for(int j =0; j < 8; j++)
         {
-            if(tab_simu[i][j] != 223)
+            if(n_f.tab[i][j] == n_f.j1)
             {
-                nbtot_pion++;
+                val_j1 = val_j1 + tab[i][j];
+            }
+            else if(n_f.tab[i][j] == n_f.j2)
+            {
+                val_j2 = val_j2 + tab[i][j];
             }
         }
     }
-    if(1/*this->getnpion(tab_simu) > nbtot_pion - this->getnpion(tab_simu)*/)
-    {
-        //return 1000 - this->getnpion(tab_simu);
-    }
-    else
-    {
-        //return -1000 + this->getnpion(tab_simu);
-    }
-
+    val_fin = val_j1 - val_j2;
+    return val_fin;
 }

@@ -1,0 +1,24 @@
+ _____  __        _           
+ |  __ \ \_\      | |          
+ | |__) |___  __ _| | ___  ___ 
+ |  _  // _ \/ _` | |/ _ \/ __|
+ | | \ \  __/ (_| | |  __/\__ \
+ |_|  \_\___|\__, |_|\___||___/
+              __/ |            
+             |___/             
+
+Bienvenue dans les regles du jeu de l'Othello!
+
+But du Jeu:
+
+Avoir plus de pions de sa couleur que l adversaire a la fin de la partie. 
+Celle-ci s acheve lorsque aucun des deux joueurs ne peut plus jouer de coup legal. 
+Cela intervient generalement lorsque les 64 cases sont occupees.
+
+
+Position d'un pion:
+
+A son tour de jeu, le joueur doit poser un pion de sa couleur sur une case vide de l othellier, adjacente a un pion adverse. 
+Il doit egalement, en posant son pion, encadrer un ou plusieurs pions adverses entre le pion qu il pose et un pion a sa couleur. 
+Il retourne alors de sa couleur le ou les pions qu il vient d encadrer.
+Les pions ne sont ni retires de l othellier, ni deplaces d’une case à l autre.
