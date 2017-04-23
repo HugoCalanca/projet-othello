@@ -11,6 +11,13 @@
 
 using namespace std;
 
+
+void Boucle_jeu()
+{
+
+}
+
+
 int main()
 {
     Board plateau;
@@ -28,8 +35,14 @@ int main()
 
     int choice=0;
 
+<<<<<<< HEAD
 
     while(choice < 1 || choice > 4)
+=======
+<<<<<<< HEAD
+
+    while(choice < 1 || choice > 3)
+>>>>>>> origin/master
     {
         cin >> choice;
     }
@@ -53,6 +66,7 @@ int main()
             //le joueur 1 joue
             plateau.m_play();
             //c'est à l'ia de jouer
+<<<<<<< HEAD
             /** \brief on calcule les coups possibles
             puis pion est placé**/
             plateau.set_possibilites();
@@ -97,4 +111,28 @@ int main()
         break;
     }
 
+=======
+            plateau.set_possibilites();
+            plateau.set_x(ia.Random(plateau.m_listCoup).first);
+            plateau.set_y(ia.Random(plateau.m_listCoup).second);
+            plateau.m_play(true);
+        }
+        break;
+
+    default:
+        break;
+    }
+
+=======
+
+    while(choice < 1 || choice > 3)
+    {
+        cin >> choice;
+    }
+
+system("cls");
+
+    plateau.Begin(choice);
+>>>>>>> origin/master
+>>>>>>> origin/master
 }

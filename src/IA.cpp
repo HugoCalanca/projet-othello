@@ -1,12 +1,23 @@
 #include "IA.h"
 #include "Coup.h"
 #include <vector>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/master
 #include <queue>
 #include "time.h"
 #include "Node.h"
 #include "random"
 #include "Board.h"
+<<<<<<< HEAD
 #include <fstream>
+=======
+=======
+#include "time.h"
+#include "random"
+>>>>>>> origin/master
+>>>>>>> origin/master
 
 IA::IA()
 {
@@ -18,26 +29,49 @@ IA::~IA()
     //dtor
 }
 
+void IA::Heuristique()
+{
+   int tab[8][8] = {120, -20, 20,  5,  5, 20, -20, 120,
+                   -20, -40, -5, -5, -5, -5, -40, -20,
+                    20,  -5, 15,  3,  3, 15,  -5,  20,
+                     5,  -5,  3,  3,  3,  3,  -5,   5,
+                     5,  -5,  3,  3,  3,  3,  -5,   5,
+                    20,  -5, 15,  3,  3, 15,  -5,  20,
+                   -20, -40, -5, -5, -5, -5, -40, -20,
+                   120, -20, 20,  5,  5, 20, -20, 120};
+}
 
+<<<<<<< HEAD
 
 pair<unsigned int, unsigned int> IA::Random(vector<Coup> m_listCoup)
 {
     int num;
     pair<unsigned int, unsigned int> p;
+=======
+void IA::Random(unsigned int& m_x, unsigned int& m_y,vector<Coup> m_listCoup)
+{
+    int num;
+>>>>>>> origin/master
 
 
     srand(time(NULL));
 
     num=rand()%m_listCoup.size();
 
+<<<<<<< HEAD
     p.first = m_listCoup[num].m_first;
     p.second = m_listCoup[num].m_second;
 
     return p;
+=======
+    m_x = m_listCoup[num].m_first;
+    m_y = m_listCoup[num].m_second;
+>>>>>>> origin/master
 }
 
 
 
+<<<<<<< HEAD
 pair<unsigned int, unsigned int> IA::minimax(Board& plateau, int deep)
 {
     int max_val = -1000;
@@ -179,6 +213,22 @@ int IA::AB(Board& n, int a, int b, int deep)
         }
         return best;
     }
+=======
+pair<unsigned int, unsigned int> IA::Random(vector<Coup> m_listCoup)
+{
+    int num;
+    pair<unsigned int, unsigned int> p;
+
+
+    srand(time(NULL));
+
+    num=rand()%m_listCoup.size();
+
+    p.first = m_listCoup[num].m_first;
+    p.second = m_listCoup[num].m_second;
+
+    return p;
+>>>>>>> origin/master
 }
 
 void IA::reset(unsigned int x, unsigned int y, char tab[8][8])
@@ -187,6 +237,7 @@ void IA::reset(unsigned int x, unsigned int y, char tab[8][8])
 }
 
 
+<<<<<<< HEAD
 int IA::Max(Board& n, int deep)
 {
     if(deep == 0 || n.m_listCoup.empty())
@@ -249,6 +300,49 @@ int IA::eval(Board& n_f)
     int val_j2 = 0;
     int val_fin = 0;
     int tab[8][8] = {120, -20, 20,  5,  5, 20, -20, 120,
+=======
+pair<unsigned int, unsigned int> IA::create_children(Board plateau)
+{
+    //on créé une copie du plateau actuel pour créer le noeud racine
+    Board n_rac(plateau);
+    //on trouve tous les coups possibles pour cette configuration
+    n_rac.set_possibilites();
+    //Pour tous les coups possible dans cette configuration
+    for(int i = 0; i < n_rac.m_listCoup.size(); i++)
+    {
+        n_rac.set_x(n_rac.m_listCoup[i].m_first);
+        n_rac.set_y(n_rac.m_listCoup[i].m_second);
+        n_rac.m_put();
+        n_rac.resetList();
+    }
+}
+
+
+void IA::reset(unsigned int x, unsigned int y, char tab[8][8])
+{
+    tab[x][y] = 223;
+}
+
+
+int IA::Min()
+{
+
+}
+
+
+int IA::Max()
+{
+
+}
+
+int IA::eval(Board n_f)
+{
+
+int val_j1 = 0;
+int val_j2 = 0;
+int val_fin = 0;
+int tab[8][8] = {120, -20, 20,  5,  5, 20, -20, 120,
+>>>>>>> origin/master
                      -20, -40, -5, -5, -5, -5, -40, -20,
                      20,  -5, 15,  3,  3, 15,  -5,  20,
                      5,  -5,  3,  3,  3,  3,  -5,   5,
@@ -258,6 +352,7 @@ int IA::eval(Board& n_f)
                      120, -20, 20,  5,  5, 20, -20, 120
                     };
 
+<<<<<<< HEAD
     for(int i = 0; i < 8; i++)
     {
         for(int j =0; j < 8; j++)
@@ -272,6 +367,22 @@ int IA::eval(Board& n_f)
             }
         }
     }
+=======
+for(int i = 0; i < 8; i++)
+{
+    for(int j =0; j < 8; j++)
+    {
+        if(n_f.tab[i][j] == n_f.j1)
+        {
+            val_j1 = val_j1 + tab[i][j];
+        }
+        else if(n_f.tab[i][j] == n_f.j2)
+        {
+            val_j2 = val_j2 + tab[i][j];
+        }
+    }
+}
+>>>>>>> origin/master
     val_fin = val_j1 - val_j2;
     return val_fin;
 }

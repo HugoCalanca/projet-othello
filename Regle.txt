@@ -7,6 +7,7 @@
               __/ |            
              |___/             
 
+<<<<<<< HEAD
 Bienvenue dans les regles du jeu de l'Othello!
 
 But du Jeu:
@@ -22,3 +23,7 @@ A son tour de jeu, le joueur doit poser un pion de sa couleur sur une case vide 
 Il doit egalement, en posant son pion, encadrer un ou plusieurs pions adverses entre le pion qu il pose et un pion a sa couleur. 
 Il retourne alors de sa couleur le ou les pions qu il vient d encadrer.
 Les pions ne sont ni retires de l othellier, ni deplaces d’une case à l autre.
+=======
+Bienvenue dans les regles du jeu de l'Othello,
+
+>>>>>>> origin/master
